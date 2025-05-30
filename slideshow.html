@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HTML Slideshow</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .slideshow-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100vw;
+      height: 56.25vw; /* 16:9 aspect ratio (9/16 = 0.5625) */
+      max-height: 100vh;
+      max-width: 177.78vh; /* 16/9 = 1.7778 */
+      transform: translate(-50%, -50%);
+      background: white;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 4vw;
+      box-sizing: border-box;
+      font-size: 2.5vw;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    .controls {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+    }
+
+    .controls button {
+      padding: 0.8em 1.2em;
+      font-size: 1em;
+      margin: 0 10px;
+      cursor: pointer;
+      border-radius: 8px;
+      border: none;
+      background-color: #333;
+      color: white;
+    }
+
+    img {
+      max-width: 100%;
+      max-height: 50%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slideshow-wrapper">
+    <div class="slide-container">
+
+      <div class="slide active">
+        <h1>Welcome to My Talk</h1>
+        <p>This is a demo slide made with pure HTML & JS.</p>
+      </div>
+
+      <div class="slide">
+        <h1>Why Use HTML?</h1>
+        <ul>
+          <li>Full control over layout</li>
+          <li>Easy to integrate code demos</li>
+          <li>No internet needed</li>
+        </ul>
+      </div>
+
+      <div class="slide">
+        <h1>Thanks!</h1>
+        <p>Feel free to ask questions or grab the code.</p>
+        <img src="https://via.placeholder.com/400x200" alt="Placeholder Image">
+      </div>
+
+    </div>
+    <div class="controls">
+      <button onclick="prevSlide()">Previous</button>
+      <button onclick="nextSlide()">Next</button>
+    </div>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+    }
+
+    function nextSlide() {
+      current = (current + 1) % slides.length;
+      showSlide(current);
+    }
+
+    function prevSlide() {
+      current = (current - 1 + slides.length) % slides.length;
+      showSlide(current);
+    }
+
+    // Optional: Keyboard navigation
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+  </script>
+
+</body>
+</html>

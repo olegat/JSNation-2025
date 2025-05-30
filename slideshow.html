@@ -121,12 +121,12 @@
     }
 
     function nextSlide() {
-      current = (current + 1) % slides.length;
+      current = Math.min(current + 1, slides.length - 1);
       showSlide(current);
     }
 
     function prevSlide() {
-      current = (current - 1 + slides.length) % slides.length;
+      current = Math.max(current - 1, 0);
       showSlide(current);
     }
 

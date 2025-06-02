@@ -122,10 +122,11 @@
       <div class="slide">
         <h1>SVG / Canvas Comparison</h1>
 
-        <table>
+        <table style="width: 90%;">
           <tr>
-            <td>
+            <td style="width: 50%;">
               <svg
+                style="width: 100%;"
                 viewBox="0 0 1800 600"
                 preserveAspectRatio="xMidYMid meet">
                 <circle
@@ -139,8 +140,8 @@
                   points="1500,100 1300,500 1700,500" />
               </svg>
             </td>
-            <td>
-              <canvas id="myCanvas"></canvas>
+            <td style="width: 50%;">
+              <canvas style="width: 100%;"  id="myCanvas"></canvas>
               <script>
                 const canvas = document.getElementById("myCanvas");
                 canvas.width = 1800;
@@ -166,7 +167,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr style="vertical-align: top">
             <td>
               <div class="highlight">
                 <!-- Generate source code view using `python3 -m pygments` -->
@@ -180,7 +181,7 @@
   <span class="p">&lt;</span><span class="nt">polygon</span>
     <span class="na">fill</span><span class="o">=</span><span class="s">&quot;green&quot;</span>
     <span class="na">points</span><span class="o">=</span><span class="s">&quot;1500,100 1300,500 1700,500&quot;</span> <span class="p">/&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">svg</span><span class="p">&gt;</span></pre>
+<span class="p">&lt;/</span><span class="nt">svg</span><span class="p">&gt;</span></pre>
               </div>
             </td>
 

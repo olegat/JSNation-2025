@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    body {
+      display: flex;
+      gap: 40px;
+      font-family: sans-serif;
+      align-items: flex-start;
+    }
+    svg, canvas {
+      width: 40vw;
+      aspect-ratio: 3 / 1;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <!-- SVG version -->
+  <div>
+    <h3>SVG</h3>
+<svg
+  viewBox="0 0 1800 600"
+  preserveAspectRatio="xMidYMid meet">
+  <circle
+    fill="red"
+    cx="300" cy="300" r="200" />
+  <rect
+    fill="blue"
+    x="700" y="100" width="400" height="400" />
+  <polygon
+    fill="green"
+    points="1500,100 1300,500 1700,500" />
+</svg>
+  </div>
+
+  <!-- Canvas version -->
+  <div>
+    <h3>Canvas</h3>
+    <canvas id="myCanvas"></canvas>
+    <script>
+const canvas = document.getElementById("myCanvas");
+canvas.width = 1800;
+canvas.height = 600;
+
+const ctx = canvas.getContext("2d");
+ctx.fillStyle = "red";
+ctx.beginPath();
+ctx.arc(300, 300, 200, 0, Math.PI * 2);
+ctx.fill();
+
+ctx.fillStyle = "blue";
+ctx.fillRect(700, 100, 400, 400);
+
+ctx.fillStyle = "green";
+ctx.beginPath();
+ctx.moveTo(1500, 100);
+ctx.lineTo(1300, 500);
+ctx.lineTo(1700, 500);
+ctx.closePath();
+ctx.fill();
+    </script>
+  </div>
+</body>
+</html>
+

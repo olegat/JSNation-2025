@@ -84,6 +84,10 @@
     code {
       color: rgb(151, 34,138);
     }
+
+    .highlight {
+      font-size: 1vw;
+    }
   </style>
 </head>
 <body>
@@ -107,12 +111,106 @@
         <h1>The Problem Space</h1>
         <p style="font-size: 2vw;">Should I use an <code>&lt;svg&gt;</code> or a <code>&lt;canvas&gt;</code>?</p>
         <p style="color: red;">TODO - Table pros & cons</p>
+        <table>
+          <tr> <td>SVG</td>                        <td>Canvas</td> </tr>
+          <tr> <td>SVG Pro 1</td>                  <td>Canvas Pro 1</td> </tr>
+          <tr> <td>SVG Pro 2</td>                  <td>Canvas Pro 2</td> </tr>
+          <tr> <td>SVG Con 1</td>                  <td>Canvas Con 2</td> </tr>
+        </table>
       </div>
 
       <div class="slide">
         <h1>SVG / Canvas Comparison</h1>
-        <p style="color: red;">TODO - Shapes (circle, square, triangle) drawn with SVG</p>
-        <p style="color: red;">TODO - Shapes (circle, square, triangle) drawn with CANVAS</p>
+
+        <table>
+          <tr>
+            <td>
+              <svg
+                viewBox="0 0 1800 600"
+                preserveAspectRatio="xMidYMid meet">
+                <circle
+                  fill="red"
+                  cx="300" cy="300" r="200" />
+                <rect
+                  fill="blue"
+                  x="700" y="100" width="400" height="400" />
+                <polygon
+                  fill="green"
+                  points="1500,100 1300,500 1700,500" />
+              </svg>
+            </td>
+            <td>
+              <canvas id="myCanvas"></canvas>
+              <script>
+                const canvas = document.getElementById("myCanvas");
+                canvas.width = 1800;
+                canvas.height = 600;
+
+                const ctx = canvas.getContext("2d");
+                ctx.fillStyle = "red";
+                ctx.beginPath();
+                ctx.arc(300, 300, 200, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = "blue";
+                ctx.fillRect(700, 100, 400, 400);
+
+                ctx.fillStyle = "green";
+                ctx.beginPath();
+                ctx.moveTo(1500, 100);
+                ctx.lineTo(1300, 500);
+                ctx.lineTo(1700, 500);
+                ctx.closePath();
+                ctx.fill();
+              </script>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="highlight">
+                <!-- Generate source code view using `python3 -m pygments` -->
+<pre><span class="p">&lt;</span><span class="nt">svg</span> <span class="na">viewBox</span><span class="o">=</span><span class="s">&quot;0 0 1800 600&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">circle</span>
+    <span class="na">fill</span><span class="o">=</span><span class="s">&quot;red&quot;</span>
+    <span class="na">cx</span><span class="o">=</span><span class="s">&quot;300&quot;</span> <span class="na">cy</span><span class="o">=</span><span class="s">&quot;300&quot;</span> <span class="na">r</span><span class="o">=</span><span class="s">&quot;200&quot;</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">rect</span>
+    <span class="na">fill</span><span class="o">=</span><span class="s">&quot;blue&quot;</span>
+    <span class="na">x</span><span class="o">=</span><span class="s">&quot;700&quot;</span> <span class="na">y</span><span class="o">=</span><span class="s">&quot;100&quot;</span> <span class="na">width</span><span class="o">=</span><span class="s">&quot;400&quot;</span> <span class="na">height</span><span class="o">=</span><span class="s">&quot;400&quot;</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">polygon</span>
+    <span class="na">fill</span><span class="o">=</span><span class="s">&quot;green&quot;</span>
+    <span class="na">points</span><span class="o">=</span><span class="s">&quot;1500,100 1300,500 1700,500&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">svg</span><span class="p">&gt;</span></pre>
+              </div>
+            </td>
+
+            <td>
+              <div class="highlight">
+<pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">canvas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;myCanvas&quot;</span><span class="p">);</span>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1800</span><span class="p">;</span>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">600</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">fillStyle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;red&quot;</span><span class="p">;</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">arc</span><span class="p">(</span><span class="mf">300</span><span class="p">,</span><span class="w"> </span><span class="mf">300</span><span class="p">,</span><span class="w"> </span><span class="mf">200</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2</span><span class="p">);</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">fill</span><span class="p">();</span>
+
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">fillStyle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;blue&quot;</span><span class="p">;</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">fillRect</span><span class="p">(</span><span class="mf">700</span><span class="p">,</span><span class="w"> </span><span class="mf">100</span><span class="p">,</span><span class="w"> </span><span class="mf">400</span><span class="p">,</span><span class="w"> </span><span class="mf">400</span><span class="p">);</span>
+
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">fillStyle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;green&quot;</span><span class="p">;</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="mf">1500</span><span class="p">,</span><span class="w"> </span><span class="mf">100</span><span class="p">);</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="mf">1300</span><span class="p">,</span><span class="w"> </span><span class="mf">500</span><span class="p">);</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="mf">1700</span><span class="p">,</span><span class="w"> </span><span class="mf">500</span><span class="p">);</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">closePath</span><span class="p">();</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">fill</span><span class="p">();</span></pre>
+              </div>
+            </td>
+
+          </tr>
+        </table>
       </div>
 
       <div class="slide">

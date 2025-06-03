@@ -143,6 +143,11 @@
       .highlight > pre > .mf { /* JS numbers */
           color: #005cc5; /* strong blue */
       }
+
+      .mid-beforeafter {
+          text-align: center;
+          margin: var(--scale);
+      }
     </style>
 
     <script>
@@ -301,7 +306,7 @@
       <div class="slide">
         <h1>The Solution: Hide The Canvas!</h1>
         <p class="subtitle">Use <code>aria-hidden: "true"</code> on the canvas, and add proxy elements</p>
-        <div style="width: 100%; background: cyan; display: flex; flex-direction: row;">
+        <div style="width: 100%; display: flex; flex-direction: row;">
           <div style="width: 63%;">
 <div class="highlight"><pre><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">canvas</span> <span class="na">aria-hidden</span><span class="o">=</span><span class="s">&quot;true&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;myCanvas&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">canvas</span><span class="p">&gt;</span>
@@ -334,11 +339,62 @@
 </pre></div>
           </div>
           <div style="width: 37%; display: flex; flex-direction: column;">
-            <div style="background: gold; height: 50%;">
-              2
+            <div style="height: 50%;">
+              <p class="mid-beforeafter">Before</p>
+              <canvas style="width: 100%;"  id="myCanvas2"></canvas>
+              <script>
+                const canvas2 = document.getElementById("myCanvas2");
+                canvas2.width = 1800;
+                canvas2.height = 600;
+
+                const ctx2 = canvas2.getContext("2d");
+                ctx2.fillStyle = "red";
+                ctx2.beginPath();
+                ctx2.arc(300, 300, 200, 0, Math.PI * 2);
+                ctx2.fill();
+
+                ctx2.fillStyle = "blue";
+                ctx2.fillRect(700, 100, 400, 400);
+
+                ctx2.fillStyle = "green";
+                ctx2.beginPath();
+                ctx2.moveTo(1500, 100);
+                ctx2.lineTo(1300, 500);
+                ctx2.lineTo(1700, 500);
+                ctx2.closePath();
+                ctx2.fill();
+              </script>
             </div>
-            <div style="background: pink; height: 50%;">
-              3
+            <div style="height: 50%;">
+              <p class="mid-beforeafter">After</p>
+              <div style="position: relative; width: 100%;">
+                <canvas aria-hidden="true" style="width: 100%;" id="myCanvas3"></canvas>
+                <div class="proxy" style="position: absolute; top: 15%; left:  5.5%; height: 64%; width: 22.5%"></div>
+                <div class="proxy" style="position: absolute; top: 15%; left: 39.0%; height: 64%; width: 22.5%"></div>
+                <div class="proxy" style="position: absolute; top: 15%; left: 72.0%; height: 64%; width: 22.5%"></div>
+              </div>
+              <script>
+                const canvas3 = document.getElementById("myCanvas3");
+                canvas3.width = 1800;
+                canvas3.height = 600;
+
+                const ctx3 = canvas3.getContext("2d");
+                ctx3.fillStyle = "red";
+                ctx3.beginPath();
+                ctx3.arc(300, 300, 200, 0, Math.PI * 2);
+                ctx3.fill();
+
+                ctx3.fillStyle = "blue";
+                ctx3.fillRect(700, 100, 400, 400);
+
+                ctx3.fillStyle = "green";
+                ctx3.beginPath();
+                ctx3.moveTo(1500, 100);
+                ctx3.lineTo(1300, 500);
+                ctx3.lineTo(1700, 500);
+                ctx3.closePath();
+                ctx3.fill();
+              </script>
             </div>
           </div>
         </div>

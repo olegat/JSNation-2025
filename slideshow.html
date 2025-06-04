@@ -236,13 +236,24 @@
       <div class="slide">
         <h1>The Problem Space</h1>
         <p class="subtitle">Should I use an <code>&lt;svg&gt;</code> or a <code>&lt;canvas&gt;</code>?</p>
-        <p style="color: red;">TODO - Table pros & cons</p>
-        <table>
-          <tr> <td>SVG</td>                        <td>Canvas</td> </tr>
-          <tr> <td>SVG Pro 1</td>                  <td>Canvas Pro 1</td> </tr>
-          <tr> <td>SVG Pro 2</td>                  <td>Canvas Pro 2</td> </tr>
-          <tr> <td>SVG Con 1</td>                  <td>Canvas Con 2</td> </tr>
-        </table>
+        <div style="display: flex; flex-direction: row; width: 82%">
+          <div style="width: 50%">
+            <p style="text-align: center"><strong>SVG</strong><p>
+              <ul>
+                <li>Vector-based graphics</li>
+                <li>Rendered by Web Browser</li>
+                <li>XML Hierarchy</li>
+              </ul>
+          </div>
+          <div style="width: 50%">
+            <p style="text-align: center"><strong>Canvas</strong><p>
+              <ul>
+                <li>Bitmap-based graphics</li>
+                <li>Rendered by JavaScript Developer</li>
+                <li>No Hierarchy<br/>(single <code>&lt;canvas&gt;</code> tag)</li>
+              </ul>
+          </div>
+        </div>
       </div>
 
       <div class="slide">

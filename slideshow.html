@@ -413,8 +413,12 @@
 
       <div class="slide">
         <h1>How to style proxy elements</h1>
-        <p style="color: red;">TODO - transparent content</p>
-        <p style="color: red;">TODO - add a focus indicator using :focus-visible pseudo-class</p>
+        <ol>
+          <li><strong style="color: red">Do not</strong> use <code>display: none</code> or <code>visibility: hidden</code>.</li>
+          <li><strong style="color: green">Do</strong> use transparent context (such as <code>opacity: 0</code>).</li>
+          <li><strong style="color: green">Do</strong> use the <code>:focus-visible</code> pseudo-class to style the focus indicator.</li>
+          <li><strong style="color: green">Do</strong> use <code>position: absolute</code> with a container element.</li>
+        </ol>
       </div>
 
       <div class="slide">

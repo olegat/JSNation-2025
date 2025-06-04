@@ -97,51 +97,55 @@
           font-size: calc(1 * var(--scale));
       }
 
-      .highlight > pre > .p { /* Plain text */
+      .highlight .p { /* Plain text */
           color: #24292e;
       }
 
-      .highlight > pre > .nt { /* HTML tag names (e.g., <div>) */
+      .highlight .nt { /* HTML tag names (e.g., <div>) */
           color: #d73a49; /* reddish */
       }
 
-      .highlight > pre > .na { /* HTML attribute names (e.g., href) */
+      .highlight .na { /* HTML attribute names (e.g., href) */
 
           color: #6f42c1; /* purple */
       }
 
-      .highlight > pre > .s { /* HTML attribute string values (e.g., "https://...") */
+      .highlight .s { /* HTML attribute string values (e.g., "https://...") */
           color: #032f62; /* dark blue */
       }
 
 
-      .highlight > pre > .o { /* Operators like '=' */
+      .highlight .o { /* Operators like '=' */
           color: #d73a49; /* same as tag name */
       }
 
-      .highlight > pre > .nx { /* JavaScript variable names and identifiers */
+      .highlight .nx { /* JavaScript variable names and identifiers */
           color: #005cc5; /* strong blue */
       }
 
-      .highlight > pre > .nb { /* JS built-in globals like `document`, `console` */
+      .highlight .nb { /* JS built-in globals like `document`, `console` */
           color: #e36209; /* orange */
       }
 
-      .highlight > pre > .s2 { /* JS strings (double-quoted or otherwise) */
+      .highlight .s2 { /* JS strings (double-quoted or otherwise) */
           color: #032f62; /* same dark blue */
       }
 
-      .highlight > pre > .w { /* Whitespace (optional, usually ignored) */
+      .highlight .w { /* Whitespace (optional, usually ignored) */
           color: inherit;
       }
 
-      .highlight > pre > .kd { /* JS keywords (function, const, etc.) */
+      .highlight .kd { /* JS keywords (function, const, etc.) */
           color: #d73a49; /* reddish */
           font-weight: bold;
       }
 
-      .highlight > pre > .mf { /* JS numbers */
+      .highlight .mf { /* JS numbers */
           color: #005cc5; /* strong blue */
+      }
+
+      .added {
+          background: rgb(205, 245, 214);
       }
 
       .mid-beforeafter {
@@ -310,10 +314,10 @@
           <div style="width: 63%;">
 <div class="highlight"><pre><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">canvas</span> <span class="na">aria-hidden</span><span class="o">=</span><span class="s">&quot;true&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;myCanvas&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">canvas</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;position: absolute; top: 100px; left:  100px; height: 400px; width: 400px&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="added">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;position: absolute; top: 100px; left:  100px; height: 400px; width: 400px&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;position: absolute; top: 100px; left:  700px; height: 400px; width: 400px&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;position: absolute; top: 100px; left: 1300px; height: 400px; width: 400px&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">canvas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;myCanvas&quot;</span><span class="p">);</span>
 <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1800</span><span class="p">;</span>

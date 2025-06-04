@@ -166,6 +166,20 @@
           text-align: center;
           margin: var(--scale);
       }
+
+      #slide-howtostyle .proxy {
+          position: absolute;
+          border: none;
+          background: rgba(0,0,0,0);
+          color: rgba(0,0,0,0);
+      }
+
+      #slide-howtostyle .proxy:focus-visible {
+          outline-color: rgb(0, 200, 255);
+          outline-offset: 3px;
+          outline-width: 10px;
+          outline-style: solid;
+      }
     </style>
 
     <script>
@@ -433,6 +447,92 @@
           <li><strong style="color: green">Do</strong> use the <code>:focus-visible</code> pseudo-class to style the focus indicator.</li>
           <li><strong style="color: green">Do</strong> use <code>position: absolute</code> with a container element.</li>
         </ol>
+      </div>
+
+      <div class="slide" id="slide-howtostyle">
+        <h1>How to style proxy elements - Example</h1>
+        <div style="width: 100%; display: flex; flex-direction: row;">
+          <div style="width: 63%;">
+<div class="highlight"><pre><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">.</span><span class="nc">container</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">1800</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">    </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">600</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="p">.</span><span class="nc">proxy</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">absolute</span><span class="p">;</span>
+<span class="w">    </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span>
+<span class="w">    </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="p">.</span><span class="nc">proxy</span><span class="p">:</span><span class="nd">focus-visible</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">outline-color</span><span class="p">:</span><span class="w"> </span><span class="nb">rgb</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">);</span>
+<span class="w">    </span><span class="k">outline-offset</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">    </span><span class="k">outline-width</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">    </span><span class="k">outline-style</span><span class="p">:</span><span class="w"> </span><span class="kc">solid</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">canvas</span> <span class="na">aria-hidden</span><span class="o">=</span><span class="s">&quot;true&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;myCanvas&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">canvas</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;proxy&quot;</span> <span class="na">tabindex</span><span class="o">=</span><span class="s">&quot;0&quot;</span>
+          <span class="na">style</span><span class="o">=</span><span class="s">&quot;top: 100px; left: 100px; height: 400px; width: 400px&quot;</span><span class="p">&gt;</span>
+    Circle
+  <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;proxy&quot;</span> <span class="na">tabindex</span><span class="o">=</span><span class="s">&quot;0&quot;</span>
+          <span class="na">style</span><span class="o">=</span><span class="s">&quot;top: 100px; left: 700px; height: 400px; width: 400px&quot;</span><span class="p">&gt;</span>
+    Square
+  <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;proxy&quot;</span> <span class="na">tabindex</span><span class="o">=</span><span class="s">&quot;0&quot;</span>
+          <span class="na">style</span><span class="o">=</span><span class="s">&quot;top: 100px; left: 1300px; height: 400px; width: 400px&quot;</span><span class="p">&gt;</span>
+    Triangle
+  <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+          </div>
+          <div style="width: 37%; display: flex; flex-direction: column;">
+            <div style="height: 50%; align-content: end;">
+              <div style="position: relative; width: 100%;">
+                <canvas aria-hidden="true" style="width: 100%;" id="myCanvas4"></canvas>
+                <button class="proxy" tabindex="0" style="top: 15%; left:  5.5%; height: 64%; width: 22.5%">Circle</button>
+                <button class="proxy" tabindex="0" style="top: 15%; left: 39.0%; height: 64%; width: 22.5%">Square</button>
+                <button class="proxy" tabindex="0" style="top: 15%; left: 72.0%; height: 64%; width: 22.5%">Triangle</button>
+              </div>
+              <script>
+                const canvas4 = document.getElementById("myCanvas4");
+                canvas4.width = 1800;
+                canvas4.height = 600;
+
+                const ctx4 = canvas4.getContext("2d");
+                ctx4.fillStyle = "red";
+                ctx4.beginPath();
+                ctx4.arc(300, 300, 200, 0, Math.PI * 2);
+                ctx4.fill();
+
+                ctx4.fillStyle = "blue";
+                ctx4.fillRect(700, 100, 400, 400);
+
+                ctx4.fillStyle = "green";
+                ctx4.beginPath();
+                ctx4.moveTo(1500, 100);
+                ctx4.lineTo(1300, 500);
+                ctx4.lineTo(1700, 500);
+                ctx4.closePath();
+                ctx4.fill();
+
+                for (const myButton of Array.from(document.querySelectorAll('#slide-howtostyle button'))) {
+                  myButton.addEventListener('click', () => {
+                    const clicked = document.getElementById('howtostyle-clicked');
+                    clicked.textContent = myButton.textContent;
+                  });
+                }
+              </script>
+            </div>
+            <div style="height: 50%;">
+              <p></p>
+              <p class="mid-beforeafter">Clicked: <code id="howtostyle-clicked">undefined</code></p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="slide">

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+  body {
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    width: 1800px;
+    height: 600px;
+  }
+  .proxy {
+    position: absolute;
+    border: none;
+    background: rgba(0,0,0,0);
+    color: rgba(0,0,0,0);
+  }
+  .proxy:focus-visible {
+    outline-color: rgb(0, 200, 255);
+    outline-offset: 3px;
+    outline-width: 10px;
+    outline-style: solid;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <canvas aria-hidden="true" id="myCanvas"></canvas>
+  <button class="proxy" tabindex="0"
+          style="top: 100px; left: 100px; height: 400px; width: 400px">
+    Circle
+  </button>
+  <button class="proxy" tabindex="0"
+          style="top: 100px; left: 700px; height: 400px; width: 400px">
+    Square
+  </button>
+  <button class="proxy" tabindex="0"
+          style="top: 100px; left: 1300px; height: 400px; width: 400px">
+    Triangle
+  </button>
+</div>
+<script>
+const canvas = document.getElementById("myCanvas");
+canvas.width = 1800;
+canvas.height = 600;
+
+const ctx = canvas.getContext("2d");
+ctx.fillStyle = "red";
+ctx.beginPath();
+ctx.arc(300, 300, 200, 0, Math.PI * 2);
+ctx.fill();
+
+ctx.fillStyle = "blue";
+ctx.fillRect(700, 100, 400, 400);
+
+ctx.fillStyle = "green";
+ctx.beginPath();
+ctx.moveTo(1500, 100);
+ctx.lineTo(1300, 500);
+ctx.lineTo(1700, 500);
+ctx.closePath();
+ctx.fill();
+</script>
+</body>
+</html>
+

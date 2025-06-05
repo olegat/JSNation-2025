@@ -985,10 +985,10 @@
 
 <span class="p">&lt;</span><span class="nt">div</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;figure&quot;</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;interactive canvas&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">canvas</span> <span class="na">aria-hidden</span><span class="o">=</span><span class="s">&quot;true&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">canvas</span><span class="p">&gt;</span>
-<span class="added">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;announcer&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;announcer1&quot;</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;img&quot;</span> <span class="na">tabindex</span><span class="o">=</span><span class="s">&quot;0&quot;</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;Position 1&quot;</span><span class="p">&gt;         </span>
+<span class="added">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;announcer&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;announcer1&quot;</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;img&quot;</span> <span class="na">tabindex</span><span class="o">=</span><span class="s">&quot;0&quot;</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;<span id="custom-focus-indicator-announcer1-label">Position 1</span>&quot;</span><span class="p">&gt;         </span>
     <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;focus-indicator&quot;</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;none&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;<span id="custom-focus-indicator-announcer1-style"></span>&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;                                   </span>
   <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;                                                                                          </span>
-  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;announcer&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;announcer2&quot;</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;img&quot;</span> <span class="na">tabindex</span><span class="o">=</span><span class="s">&quot;0&quot;</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">&gt;                   </span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;announcer&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;announcer2&quot;</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;img&quot;</span> <span class="na">tabindex</span><span class="o">=</span><span class="s">&quot;0&quot;</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;<span id="custom-focus-indicator-announcer2-label"></span>&quot;</span><span class="p">&gt;                   </span>
     <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;focus-indicator&quot;</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;none&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;<span id="custom-focus-indicator-announcer2-style"></span>&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;                                   </span>
   <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;                                                                                          </span>
 </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
@@ -1073,12 +1073,18 @@
                   ctx.closePath();
 
                   // Update the HTML code shown the slide
+                  const announcer1 = document.getElementById('custom-focus-indicator-announcer1');
+                  const announcer2 = document.getElementById('custom-focus-indicator-announcer2');
                   const indicator1 = document.getElementById('custom-focus-indicator-indicator1');
                   const indicator2 = document.getElementById('custom-focus-indicator-indicator2');
                   const announcer1_style = document.getElementById('custom-focus-indicator-announcer1-style');
                   const announcer2_style = document.getElementById('custom-focus-indicator-announcer2-style');
+                  const announcer1_label = document.getElementById('custom-focus-indicator-announcer1-label');
+                  const announcer2_label = document.getElementById('custom-focus-indicator-announcer2-label');
                   announcer1_style.textContent = `left: ${indicator1.style.left}; top: ${indicator1.style.top}; width: ${indicator1.style.width}; height: ${indicator1.style.height};`
                   announcer2_style.textContent = `left: ${indicator2.style.left}; top: ${indicator2.style.top}; width: ${indicator2.style.width}; height: ${indicator2.style.height};`
+                  announcer1_label.textContent = announcer1.getAttribute('aria-label');
+                  announcer2_label.textContent = announcer2.getAttribute('aria-label');
 
                   const bounds = calcFocusIndicatorBounds(currentPos);
                   updateFocusIndicator(bounds);

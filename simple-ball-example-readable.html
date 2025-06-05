@@ -14,6 +14,7 @@
 
   function onKeyDown(event) {
     // Update state:
+    event.preventDefault();
     if (event.key === 'ArrowLeft'  && currentPos > 0) { currentPos--; }
     if (event.key === 'ArrowRight' && currentPos < 5) { currentPos++; }
     drawBall();

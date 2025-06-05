@@ -241,6 +241,35 @@
       #simple-ball-demo .container {
           position: relative;
       }
+
+      #custom-focus-indicator-demo canvas {
+          position: absolute;
+          border: 1px solid black;
+          width: 100%;
+          height: 100%;
+      }
+      #custom-focus-indicator-demo .announcer {
+          position: absolute;
+          user-select: none;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+      }
+      #custom-focus-indicator-demo .announcer:focus-visible {
+          opacity: 1;
+      }
+      #custom-focus-indicator-demo .container {
+          position: relative;
+      }
+      #custom-focus-indicator-demo .focus-indicator {
+          position: absolute;
+          pointer-events: none;
+          background-color: transparent;
+          border-radius: 50%;
+          box-shadow: 0 0 0 2px white, 0 0 0 4px #ff00ff;
+      }
     </style>
 
     <script>
@@ -948,6 +977,7 @@
 <span class="w">  </span><span class="p">.</span><span class="nc">focus-indicator</span><span class="w"> </span><span class="p">{                                                                                </span>
 <span class="w">      </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">absolute</span><span class="p">;                                                                                </span>
 <span class="w">      </span><span class="k">pointer-events</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;                                                                                </span>
+<span class="w">      </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="kc">transparent</span><span class="p">;                                                                      </span>
 <span class="w">      </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="kt">%</span><span class="p">;                                                                                </span>
 <span class="w">      </span><span class="k">box-shadow</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">2</span><span class="kt">px</span><span class="w"> </span><span class="kc">white</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">4</span><span class="kt">px</span><span class="w"> </span><span class="mh">#ff00ff</span><span class="p">;                                             </span>
 <span class="w">  </span><span class="p">}                                                                                                                                                                                                        </span>
@@ -983,6 +1013,120 @@
           </div>
           <div style="width: 37%; display: flex; flex-direction: column; margin-left: calc(2 * var(--scale));">
             <h1>Custom Focus Indicator</h1>
+            <br/>
+            <div role="figure" aria-label="interactive canvas" class="container" id="custom-focus-indicator-container" >
+              <canvas id="custom-focus-indicator-canvas" aria-hidden="true" width="400px" height="100px"></canvas>
+              <div id="custom-focus-indicator-announcer1" role="img" class="announcer" tabindex="0" style="display: block" aria-label="Position 1">
+                <div class="focus-indicator" role="none" style="left: 7.46269%; top: 29.4118%; width: 10.9453%; height: 43.1373%;"></div>
+              </div>
+              <div id="custom-focus-indicator-announcer2" role="img" class="announcer" tabindex="0" style="display: none" aria-label="">
+                <div class="focus-indicator" role="none" style="left: 7.46269%; top: 29.4118%; width: 10.9453%; height: 43.1373%;"></div>
+              </div>
+            </div>
+
+            <script>
+              (() => {
+                let currentPos = 0; // Current ball position, starting at 1st position
+                let activeAnnouncer = document.getElementById('custom-focus-indicator-announcer1');
+                let inactiveAnnouncer = document.getElementById('custom-focus-indicator-announcer2');
+
+                function onKeyDown(event) {
+                  // Update state:
+                  event.preventDefault();
+                  if (event.key === 'ArrowLeft'  && currentPos > 0) { currentPos--; }
+                  if (event.key === 'ArrowRight' && currentPos < 6) { currentPos++; }
+
+                  // Swap announcer states
+                  [activeAnnouncer, inactiveAnnouncer]  = [inactiveAnnouncer, activeAnnouncer];
+                  activeAnnouncer.setAttribute('aria-label', `Position ${currentPos + 1}`);
+                  activeAnnouncer.style.display = 'block';
+                  inactiveAnnouncer.style.display = 'none';
+                  drawBall();
+
+                  // Announce new value
+                  activeAnnouncer.focus();
+                }
+
+                function updateFocusIndicator(bounds) {
+                  const focusEl = activeAnnouncer.querySelector('.focus-indicator');
+                  focusEl.style.left = bounds.left;
+                  focusEl.style.top = bounds.top;
+                  focusEl.style.width = bounds.width;
+                  focusEl.style.height = bounds.height;
+                }
+
+                activeAnnouncer.addEventListener('keydown', onKeyDown);
+                inactiveAnnouncer.addEventListener('keydown', onKeyDown);
+
+                // Boilerplate code (not shown on slide)
+                const canvas = document.getElementById('custom-focus-indicator-canvas');
+                const ctx = canvas.getContext('2d');
+                const positions = [50, 100, 150, 200, 250, 300, 350]; // Ball's X positions for 5 slots
+
+                function drawBall() {
+                  ctx.fillStyle = 'lime';
+                  ctx.fillRect(0, 0, canvas.width, canvas.height);
+                  ctx.beginPath();
+                  ctx.arc(positions[currentPos], 50, 20, 0, Math.PI * 2);
+                  ctx.fillStyle = 'black';
+                  ctx.fill();
+                  ctx.closePath();
+
+                  // Just the HTML code shown the slide
+                  const announcer1 = document.getElementById('custom-focus-indicator-announcer1');
+                  const announcer2 = document.getElementById('custom-focus-indicator-announcer2');
+                  const announcer1_tabindex = document.getElementById('announcer1-tabindex');
+                  const announcer2_tabindex = document.getElementById('announcer2-tabindex');
+                  const announcer1_display = document.getElementById('announcer1-display');
+                  const announcer2_display = document.getElementById('announcer2-display');
+                  const announcer1_arialabel = document.getElementById('announcer1-aria-label');
+                  const announcer2_arialabel = document.getElementById('announcer2-aria-label');
+                  announcer1_tabindex.textContent = `${announcer1.tabIndex}`;
+                  announcer2_tabindex.textContent = `${announcer2.tabIndex}`;
+                  announcer1_display.textContent = announcer1.style.display;
+                  announcer2_display.textContent = announcer2.style.display;
+                  announcer1_arialabel.textContent = announcer1.getAttribute('aria-label');
+                  announcer2_arialabel.textContent = announcer2.getAttribute('aria-label');
+
+                  const bounds = calcFocusIndicatorBounds(currentPos);
+                  updateFocusIndicator(bounds);
+                }
+
+                function calcFocusIndicatorBounds(newPosition) {
+                  const rect = canvas.getBoundingClientRect();
+                  const ballX = 2 + positions[newPosition];
+                  const ballY = 2 + 50;
+                  const ballRadius = 22;
+
+                  const leftPx = ballX - ballRadius;
+                  const topPx = ballY - ballRadius;
+                  const widthPx = ballRadius * 2;
+                  const heightPx = ballRadius * 2;
+
+                  const leftPercent = (leftPx / rect.width) * 100;
+                  const topPercent = (topPx / rect.height) * 100;
+                  const widthPercent = (widthPx / rect.width) * 100;
+                  const heightPercent = (heightPx / rect.height) * 100;
+
+                  return {
+                    left: `${leftPercent}%`,
+                    top: `${topPercent}%`,
+                    width: `${widthPercent}%`,
+                    height: `${heightPercent}%`,
+                  };
+                }
+
+                function updateBounds() {
+                  const container = document.getElementById('custom-focus-indicator-container');
+                  container.style.width  = `${24 * gScale}px`;
+                  container.style.height = `${6 * gScale}px`;
+                }
+
+                window.addEventListener('resize', updateBounds);
+                updateBounds();
+                drawBall();
+              })();
+            </script>
           </div>
         </div>
       </div>

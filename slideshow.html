@@ -694,10 +694,13 @@
       showSlide(current);
     }
 
-    // Optional: Keyboard navigation
     document.addEventListener('keydown', e => {
-      if (e.key === 'ArrowRight') nextSlide();
-      if (e.key === 'ArrowLeft') prevSlide();
+      if (!e.ctrlKey && !e.altKey && e.metaKey) {
+        if (e.key === 'ArrowRight') nextSlide();
+        if (e.key === 'ArrowLeft') prevSlide();
+      }
+      if (e.key === ']') nextSlide();
+      if (e.key === '[') prevSlide();
     });
   </script>
 

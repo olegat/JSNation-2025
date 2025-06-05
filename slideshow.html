@@ -819,10 +819,10 @@
   <span class="p">&lt;</span><span class="nt">canvas</span> <span class="na">aria-hidden</span><span class="o">=</span><span class="s">&quot;true&quot;</span> <span class="na">width</span><span class="o">=</span><span class="s">&quot;400px&quot;</span> <span class="na">height</span><span class="o">=</span><span class="s">&quot;100px&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">canvas</span><span class="p">&gt;</span>
 
   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;myAnnouncer1&quot;</span>
-       <span class="na">role</span><span class="o">=</span><span class="s">&quot;img&quot;</span> <span class="na">tabindex</span><span class="o">=</span><span class="s">&quot;0&quot;</span> <span class="na">aria-hidden</span><span class="o">=</span><span class="s">&quot;false&quot;</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;Position 1&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+       <span class="na">role</span><span class="o">=</span><span class="s">&quot;img&quot;</span> <span class="na">tabindex</span><span class="o">=</span><span class="s">&quot;<span id="announcer1-tabindex">0</span>&quot;</span> <span class="na">aria-hidden</span><span class="o">=</span><span class="s">&quot;<span id="announcer1-aria-hidden">false</span>&quot;</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;<span id="announcer1-aria-label">Position 1</span>&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;myAnnouncer2&quot;</span>
-       <span class="na">role</span><span class="o">=</span><span class="s">&quot;img&quot;</span> <span class="na">tabindex</span><span class="o">=</span><span class="s">&quot;-1&quot;</span> <span class="na">aria-hidden</span><span class="o">=</span><span class="s">&quot;true&quot;</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+       <span class="na">role</span><span class="o">=</span><span class="s">&quot;img&quot;</span> <span class="na">tabindex</span><span class="o">=</span><span class="s">&quot;<span id="announcer2-tabindex">-1</span>&quot;</span> <span class="na">aria-hidden</span><span class="o">=</span><span class="s">&quot;<span id="announcer2-aria-hidden">true</span>&quot;</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;<span id="announcer2-aria-label"></span>&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">currentPos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// Current ball position, starting at 1st position</span>
@@ -872,7 +872,6 @@
                   // Update state:
                   if (event.key === 'ArrowLeft'  && currentPos > 0) { currentPos--; }
                   if (event.key === 'ArrowRight' && currentPos < 5) { currentPos++; }
-                  drawBall();
 
                   // Swap announcer states
                   [activeAnnouncer, inactiveAnnouncer]  = [inactiveAnnouncer, activeAnnouncer];
@@ -881,6 +880,7 @@
                   activeAnnouncer.setAttribute('tabindex', '0');
                   inactiveAnnouncer.setAttribute('tabindex', '-1');
                   inactiveAnnouncer.setAttribute('aria-hidden', 'true');
+                  drawBall();
 
                   // Announce new value
                   activeAnnouncer.focus();
@@ -902,6 +902,22 @@
                   ctx.fillStyle = 'black';
                   ctx.fill();
                   ctx.closePath();
+
+                  // Just the HTML code shown the slide
+                  const announcer1 = document.getElementById('simple-ball-demo-announcer1');
+                  const announcer2 = document.getElementById('simple-ball-demo-announcer2');
+                  const announcer1_tabindex = document.getElementById('announcer1-tabindex');
+                  const announcer2_tabindex = document.getElementById('announcer2-tabindex');
+                  const announcer1_ariahidden = document.getElementById('announcer1-aria-hidden');
+                  const announcer2_ariahidden = document.getElementById('announcer2-aria-hidden');
+                  const announcer1_arialabel = document.getElementById('announcer1-aria-label');
+                  const announcer2_arialabel = document.getElementById('announcer2-aria-label');
+                  announcer1_tabindex.textContent = `${announcer1.tabIndex}`;
+                  announcer2_tabindex.textContent = `${announcer2.tabIndex}`;
+                  announcer1_ariahidden.textContent = announcer1.getAttribute('aria-hidden');
+                  announcer2_ariahidden.textContent = announcer2.getAttribute('aria-hidden');
+                  announcer1_arialabel.textContent = announcer1.getAttribute('aria-label');
+                  announcer2_arialabel.textContent = announcer2.getAttribute('aria-label');
                 }
 
                 function updateBounds() {

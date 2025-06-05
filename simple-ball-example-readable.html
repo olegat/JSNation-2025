@@ -2,24 +2,20 @@
   <canvas id="myCanvas" aria-hidden="true" width="400px" height="100px"></canvas>
 
   <div id="myAnnouncer1"
-       role="img" tabindex="0"  aria-hidden="false" aria-label="Position 1"></div>
+       role="img" tabindex="0" aria-hidden="false" aria-label="Position 1"></div>
 
   <div id="myAnnouncer2"
-       role="img" tabindex="-1" aria-hidden="true"  aria-label=""></div>
+       role="img" tabindex="-1" aria-hidden="true" aria-label=""></div>
 </div>
 <script>
     let currentPos = 0; // Current ball position, starting at 1st position
-
     let activeAnnouncer   = document.getElementById('myAnnouncer1');
     let inactiveAnnouncer = document.getElementById('myAnnouncer2');
 
     function onKeyDown(event) {
       // Update state:
-      if (event.key === 'ArrowLeft' && currentPos > 0) {
-        currentPos--;
-      } else if (event.key === 'ArrowRight' && currentPos < 5) {
-        currentPos++;
-      }
+      if (event.key === 'ArrowLeft'  && currentPos > 0) { currentPos--; }
+      if (event.key === 'ArrowRight' && currentPos < 5) { currentPos++; }
       drawBall();
 
       // Swap announcer states

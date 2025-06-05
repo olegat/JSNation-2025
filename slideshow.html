@@ -188,22 +188,22 @@
     </style>
 
     <script>
+      let gScale;
       function updateScale() {
         const wrapper = document.querySelector('.slideshow-wrapper');
         const ratio = 16 / 9;
         const width = window.innerWidth;
         const height = window.innerHeight;
-        let scale;
 
         if (width / height < ratio) {
           // Vertical letterboxing (black bars top/bottom)
-          scale = width / 100;
+          gScale = width / 100;
         } else {
           // Horizontal letterboxing (black bars left/right)
-          scale = height / 56.25; // 100vh = 56.25vw at 16:9
+          gScale = height / 56.25; // 100vh = 56.25vw at 16:9
         }
 
-        document.documentElement.style.setProperty('--scale', `${scale}px`);
+        document.documentElement.style.setProperty('--scale', `${gScale}px`);
       }
 
       window.addEventListener('resize', updateScale);
@@ -212,6 +212,7 @@
 
   </head>
 <body>
+  <script src="https://www.ag-grid.com/charts/archive/11.0.0/dev/ag-charts-community/dist/umd/ag-charts-community.js?t=1733928648241"></script>
 
   <div class="slideshow-wrapper">
     <div class="slide-container">
@@ -554,6 +555,86 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="slide">
+        <h1>Let's see an example with AG Charts</h1>
+      </div>
+
+      <div class="slide">
+        <div style="height: 80%; width: 80%;" id="myProxyExampleContainer"></div>
+        <script>
+          function getRIOpts_myProxyExampleChart() {
+            return {
+              legend: {
+                pagination: {
+                  marker: { size: 2.5 * gScale },
+                  label: { fontSize: 2.3 * gScale },
+                },
+                item: {
+                  marker: { size: 2.5 * gScale },
+                  label: { fontSize: 2.3 * gScale },
+                  line: {
+                    strokeWidth: 1.0 * gScale,
+                    length: 6 * gScale,
+                  },
+                },
+                maxHeight: 6 * gScale,
+                maxWidth: 80 * gScale,
+              },
+            };
+          }
+
+          function update_myProxyExampleChart() {
+            myProxyExampleChart.updateDelta(getRIOpts_myProxyExampleChart());
+          }
+
+          const myProxyExampleChart = agCharts.AgCharts.create({
+            container: document.getElementById('myProxyExampleContainer'),
+            series: [
+              { xKey: 'x', yKey: 'Series 1' },
+              { xKey: 'x', yKey: 'Series 2' },
+              { xKey: 'x', yKey: 'Series 3' },
+              { xKey: 'x', yKey: 'Series 4' },
+              { xKey: 'x', yKey: 'Series 5' },
+              { xKey: 'x', yKey: 'Series 6' },
+              { xKey: 'x', yKey: 'Series 7' },
+              { xKey: 'x', yKey: 'Series 8' },
+              { xKey: 'x', yKey: 'Series 9' },
+              { xKey: 'x', yKey: 'Series 10' },
+              { xKey: 'x', yKey: 'Series 11' },
+              { xKey: 'x', yKey: 'Series 12' },
+              { xKey: 'x', yKey: 'Series 13' },
+            ],
+            overlays: {
+              noData: {
+                renderer: () => {
+                  return [
+                    "<div",
+                    '    style="',
+                    "        align-items: center;",
+                    "        background: hsl(45deg, 100%, 90%);",
+                    "        border: 2px solid hsl(0deg, 100%, 75%);",
+                    "        box-sizing: border-box;",
+                    "        color: black;",
+                    "        display: flex;",
+                    "        height: calc(100% - 16px);",
+                    "        justify-content: center;",
+                    "        margin: 8px;",
+                    '    "',
+                    ">",
+                    "    Placeholder (no data to show)",
+                    "</div>",
+                  ].join("\n");
+                },
+              },
+            },
+            ...getRIOpts_myProxyExampleChart(),
+          });
+
+          window.addEventListener('resize', update_myProxyExampleChart);
+          update_myProxyExampleContainer();
+        </script>
       </div>
 
       <div class="slide">

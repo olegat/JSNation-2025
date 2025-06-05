@@ -822,7 +822,7 @@
        <span class="na">role</span><span class="o">=</span><span class="s">&quot;img&quot;</span> <span class="na">tabindex</span><span class="o">=</span><span class="s">&quot;<span id="announcer1-tabindex">0</span>&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;display: <span id="announcer1-display">block</span>&quot;</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;<span id="announcer1-aria-label">Position 1</span>&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;myAnnouncer2&quot;</span>
-       <span class="na">role</span><span class="o">=</span><span class="s">&quot;img&quot;</span> <span class="na">tabindex</span><span class="o">=</span><span class="s">&quot;<span id="announcer2-tabindex">-1</span>&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;display: <span id="announcer2-display">none</span>&quot;</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;<span id="announcer2-aria-label"></span>&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+       <span class="na">role</span><span class="o">=</span><span class="s">&quot;img&quot;</span> <span class="na">tabindex</span><span class="o">=</span><span class="s">&quot;<span id="announcer2-tabindex">0</span>&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;display: <span id="announcer2-display">none</span>&quot;</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;<span id="announcer2-aria-label"></span>&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">currentPos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// Current ball position, starting at 1st position</span>
@@ -839,9 +839,7 @@
 <span class="w">    </span><span class="c1">// Swap announcer states</span>
 <span class="w">    </span><span class="p">[</span><span class="nx">activeAnnouncer</span><span class="p">,</span><span class="w"> </span><span class="nx">inactiveAnnouncer</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nx">inactiveAnnouncer</span><span class="p">,</span><span class="w"> </span><span class="nx">activeAnnouncer</span><span class="p">];</span>
 <span class="w">    </span><span class="nx">activeAnnouncer</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;aria-label&#39;</span><span class="p">,</span><span class="w"> </span><span class="sb">`Position </span><span class="si">${</span><span class="nx">newPosition</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
-<span class="w">    </span><span class="nx">activeAnnouncer</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;tabindex&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="p">);</span>
 <span class="w">    </span><span class="nx">activeAnnouncer</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;block&#39;</span><span class="p">;</span>
-<span class="w">    </span><span class="nx">inactiveAnnouncer</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;tabindex&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-1&#39;</span><span class="p">);</span>
 <span class="w">    </span><span class="nx">inactiveAnnouncer</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;none&#39;</span><span class="p">;</span>
 
 <span class="w">    </span><span class="c1">// Announce new value</span>
@@ -860,7 +858,7 @@
 
               <!-- Two announcer elements for accessibility -->
               <div id="simple-ball-demo-announcer1" role="img" class="announcer" tabindex="0" style="display: block" aria-label="Position 1"></div>
-              <div id="simple-ball-demo-announcer2" role="img" class="announcer" tabindex="-1" style="display: none" aria-label=""></div>
+              <div id="simple-ball-demo-announcer2" role="img" class="announcer" tabindex="0" style="display: none" aria-label=""></div>
             </div>
 
             <script>
@@ -878,9 +876,7 @@
                   // Swap announcer states
                   [activeAnnouncer, inactiveAnnouncer]  = [inactiveAnnouncer, activeAnnouncer];
                   activeAnnouncer.setAttribute('aria-label', `Position ${currentPos + 1}`);
-                  activeAnnouncer.setAttribute('tabindex', '0');
                   activeAnnouncer.style.display = 'block';
-                  inactiveAnnouncer.setAttribute('tabindex', '-1');
                   inactiveAnnouncer.style.display = 'none';
                   drawBall();
 

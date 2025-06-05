@@ -7,13 +7,24 @@
     <style>
       :root {
           --scale: 1vmin;
+          --letterbox-color: black;
       }
       html, body {
           margin: 0;
           padding: 0;
-          background: black;
+          background: var(--letterbox-color);
           height: 100%;
           overflow: hidden;
+      }
+
+      :-webkit-full-screen {
+          background-color: var(--letterbox-color);
+      }
+      :-ms-fullscreen {
+          background-color: var(--letterbox-color);
+      }
+      :fullscreen {
+          background-color: var(--letterbox-color);
       }
 
       .slide-hidden {
@@ -677,6 +688,7 @@
   <script>
     const slides = document.querySelectorAll('.slide');
     let current = 0;
+    let isfullscreen = false;
 
     function showSlide(index) {
       slides.forEach((slide, i) => {
@@ -694,6 +706,36 @@
       showSlide(current);
     }
 
+    function openFullscreen() {
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      } else if (document.documentElement.webkitRequestFullscreen) { /* Safari */
+        document.documentElement.webkitRequestFullscreen();
+      } else if (document.documentElement.msRequestFullscreen) { /* IE11 */
+        document.documentElement.msRequestFullscreen();
+      }
+      isfullscreen = true;
+    }
+
+    function closeFullscreen() {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
+      }
+      isfullscreen = false;
+    }
+
+    function toggleFullscreen() {
+      if (isfullscreen) {
+        closeFullscreen();
+      } else {
+        openFullscreen();
+      }
+    }
+
     document.addEventListener('keydown', e => {
       if (!e.ctrlKey && !e.altKey && e.metaKey) {
         if (e.key === 'ArrowRight') nextSlide();
@@ -701,6 +743,7 @@
       }
       if (e.key === ']') nextSlide();
       if (e.key === '[') prevSlide();
+      if (e.code === 'KeyF') toggleFullscreen();
     });
   </script>
 

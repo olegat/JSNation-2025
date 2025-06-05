@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessible Ball Movement</title>
+    <style>
+        /* Basic canvas setup */
+        canvas {
+            position: absolute;
+            border: 1px solid black;
+            width: 400px;
+            height: 100px;
+        }
+
+        /* Announcer style: invisible but occupies the canvas bounds */
+        .announcer {
+            position: absolute;
+            user-select: none;
+            top: 0;
+            left: 0;
+            width: 400px;
+            height: 100px;
+            background-color: transparent; /* Hide visually */
+        }
+
+        /* Center the container on the page */
+        .container {
+            position: relative;
+            width: 400px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div role="figure" aria-label="interactive canvas" class="container">
+        <canvas id="ballCanvas" aria-hidden="true" width="400px" height="100px"></canvas>
+
+        <!-- Two announcer elements for accessibility -->
+        <div id="announcer1" role="img" class="announcer" tabindex="0" aria-label="Position 1"></div>
+        <div id="announcer2" role="img" class="announcer" tabindex="-1" aria-label=""></div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('ballCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const announcer1 = document.getElementById('announcer1');
+        const announcer2 = document.getElementById('announcer2');
+
+        const positions = [50, 100, 150, 200, 250, 350]; // Ball's X positions for 5 slots
+        let currentPos = 0; // Current ball position, starting at 1st position
+        let activeAnnouncer = announcer1;
+        let inactiveAnnouncer = announcer2;
+
+        // Draw ball on canvas at the current position
+        function drawBall() {
+            ctx.fillStyle = 'lime';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.arc(positions[currentPos], 50, 20, 0, Math.PI * 2);
+            ctx.fillStyle = 'black';
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        // Function to switch announcer focus and update labels
+        function switchAnnouncer(newPosition) {
+            // Swap announcer states
+            [activeAnnouncer, inactiveAnnouncer]  = [inactiveAnnouncer, activeAnnouncer];
+
+            activeAnnouncer.setAttribute('aria-label', `Position ${newPosition + 1}`);
+            activeAnnouncer.setAttribute('tabindex', '0');
+            inactiveAnnouncer.setAttribute('tabindex', '-1');
+
+            // Announce new value
+            activeAnnouncer.focus();
+        }
+
+        // Move ball to the new position
+        function moveBall(event, direction) {
+            event.preventDefault();
+            if (direction === 'left' && currentPos > 0) {
+                currentPos--;
+            } else if (direction === 'right' && currentPos < 5) {
+                currentPos++;
+            }
+            drawBall();
+            switchAnnouncer(currentPos);
+        }
+
+        // Attach event listeners to active announcer
+        function onKeyDown(event) {
+            if (event.key === 'ArrowLeft') {
+                moveBall(event, 'left');
+            } else if (event.key === 'ArrowRight') {
+                moveBall(event, 'right');
+            }
+        }
+        activeAnnouncer.addEventListener('keydown', onKeyDown);
+        inactiveAnnouncer.addEventListener('keydown', onKeyDown);
+
+        // Initial drawing of the ball
+        drawBall();
+    </script>
+</body>
+</html>

@@ -196,6 +196,25 @@
           outline-width: 10px;
           outline-style: solid;
       }
+
+      #simple-ball-example canvas {
+          position: absolute;
+          border: 1px solid black;
+          width: 100%;
+          height: 100%;
+      }
+      #simple-ball-example .announcer {
+          position: absolute;
+          user-select: none;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: transparent; /* Hide visually */
+      }
+      #simple-ball-example .container {
+          position: relative;
+      }
     </style>
 
     <script>
@@ -651,6 +670,104 @@
         </script>
       </div>
 
+      <div class="slide">
+        <h1>Interactive Images</h1>
+        <ul>
+          <li>Proxy DOM elements <strong style="color: green">work well</strong> for:</li>
+          <ul>
+            <li>UI Controls that do not update much or often.</li>
+            <li>UI Controls that map to an ARIA semantic (like <code>role="button"</code>).</li>
+          </ul>
+          <li>Proxy DOM elements <strong style="color: red">do not work well</strong> for:</li>
+          <ul>
+            <li>Custom or innovative UI Controls.</li>
+          </ul>
+        </ul>
+      </div>
+
+      <div class="slide" id="simple-ball-example">
+        <h1>Interactive Images - Simple Ball Example</h1>
+        <br/>
+        <div role="figure" aria-label="interactive canvas" class="container" id="simple-ball-example-container" >
+          <canvas id="simple-ball-example-canvas" aria-hidden="true" width="400px" height="100px"></canvas>
+
+          <!-- Two announcer elements for accessibility -->
+          <div id="simple-ball-example-announcer1" role="img" class="announcer" tabindex="0"  aria-hidden="false" aria-label="Position 1"></div>
+          <div id="simple-ball-example-announcer2" role="img" class="announcer" tabindex="-1" aria-hidden="true"  aria-label=""></div>
+        </div>
+
+        <script>
+          (() => {
+            const canvas = document.getElementById('simple-ball-example-canvas');
+            const ctx = canvas.getContext('2d');
+
+            const announcer1 = document.getElementById('simple-ball-example-announcer1');
+            const announcer2 = document.getElementById('simple-ball-example-announcer2');
+
+            const positions = [50, 100, 150, 200, 250, 350]; // Ball's X positions for 5 slots
+            let currentPos = 0; // Current ball position, starting at 1st position
+            let activeAnnouncer = announcer1;
+            let inactiveAnnouncer = announcer2;
+
+            function drawBall() {
+              ctx.fillStyle = 'lime';
+              ctx.fillRect(0, 0, canvas.width, canvas.height);
+              ctx.beginPath();
+              ctx.arc(positions[currentPos], 50, 20, 0, Math.PI * 2);
+              ctx.fillStyle = 'black';
+              ctx.fill();
+              ctx.closePath();
+            }
+
+            function moveBall(event, direction) {
+              event.preventDefault();
+              if (direction === 'left' && currentPos > 0) {
+                currentPos--;
+              } else if (direction === 'right' && currentPos < 5) {
+                currentPos++;
+              }
+              drawBall();
+              switchAnnouncer(currentPos);
+            }
+
+            function updateBounds() {
+              const container = document.getElementById('simple-ball-example-container');
+              container.style.width  = `${40 * gScale}px`;
+              container.style.height = `${10 * gScale}px`;
+            }
+
+            function switchAnnouncer(newPosition) {
+              // Swap announcer states
+              [activeAnnouncer, inactiveAnnouncer]  = [inactiveAnnouncer, activeAnnouncer];
+
+              activeAnnouncer.setAttribute('aria-label', `Position ${newPosition + 1}`);
+              activeAnnouncer.setAttribute('aria-hidden', 'false');
+              activeAnnouncer.setAttribute('tabindex', '0');
+              inactiveAnnouncer.setAttribute('tabindex', '-1');
+              inactiveAnnouncer.setAttribute('aria-hidden', 'true');
+
+              // Announce new value
+              activeAnnouncer.focus();
+            }
+
+            function onKeyDown(event) {
+              if (event.key === 'ArrowLeft') {
+                moveBall(event, 'left');
+              } else if (event.key === 'ArrowRight') {
+                moveBall(event, 'right');
+              }
+            }
+
+            activeAnnouncer.addEventListener('keydown', onKeyDown);
+            inactiveAnnouncer.addEventListener('keydown', onKeyDown);
+            window.addEventListener('resize', updateScale);
+            updateBounds();
+
+            drawBall();
+          })();
+        </script>
+      </div>
+
       <!-- ->
       <div class="slide">
         <h1>Gotcha! :focus-visible caveats</h1>
@@ -681,6 +798,7 @@
       </div>
 
     </div>
+
     <div class="controls">
       <button onclick="prevSlide()">Previous</button>
       <button onclick="nextSlide()">Next</button>

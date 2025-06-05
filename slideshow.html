@@ -222,6 +222,25 @@
       #simple-ball-example .container {
           position: relative;
       }
+
+      #simple-ball-demo canvas {
+          position: absolute;
+          border: 1px solid black;
+          width: 100%;
+          height: 100%;
+      }
+      #simple-ball-demo .announcer {
+          position: absolute;
+          user-select: none;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: transparent; /* Hide visually */
+      }
+      #simple-ball-demo .container {
+          position: relative;
+      }
     </style>
 
     <script>
@@ -794,7 +813,7 @@
 
       <div class="slide" id="simple-ball-demo">
         <h1>Interactive Canvas - Simple Demo</h1>
-        <div style="width: 80%; display: flex; flex-direction: row;">
+        <div style="width: 100%; display: flex; flex-direction: row;">
           <div style="width: 63%;">
 <div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;figure&quot;</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;interactive canvas&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">canvas</span> <span class="na">aria-hidden</span><span class="o">=</span><span class="s">&quot;true&quot;</span> <span class="na">width</span><span class="o">=</span><span class="s">&quot;400px&quot;</span> <span class="na">height</span><span class="o">=</span><span class="s">&quot;100px&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">canvas</span><span class="p">&gt;</span>
@@ -834,6 +853,68 @@
 </pre></div>
           </div>
           <div style="width: 37%; display: flex; flex-direction: column;">
+            <br/>
+            <div role="figure" aria-label="interactive canvas" class="container" id="simple-ball-demo-container" >
+              <canvas id="simple-ball-demo-canvas" aria-hidden="true" width="400px" height="100px"></canvas>
+
+              <!-- Two announcer elements for accessibility -->
+              <div id="simple-ball-demo-announcer1" role="img" class="announcer" tabindex="0"  aria-hidden="false" aria-label="Position 1"></div>
+              <div id="simple-ball-demo-announcer2" role="img" class="announcer" tabindex="-1" aria-hidden="true"  aria-label=""></div>
+            </div>
+
+            <script>
+              (() => {
+                let currentPos = 0; // Current ball position, starting at 1st position
+                let activeAnnouncer = document.getElementById('simple-ball-demo-announcer1');
+                let inactiveAnnouncer = document.getElementById('simple-ball-demo-announcer2');
+
+                function onKeyDown(event) {
+                  // Update state:
+                  if (event.key === 'ArrowLeft'  && currentPos > 0) { currentPos--; }
+                  if (event.key === 'ArrowRight' && currentPos < 5) { currentPos++; }
+                  drawBall();
+
+                  // Swap announcer states
+                  [activeAnnouncer, inactiveAnnouncer]  = [inactiveAnnouncer, activeAnnouncer];
+                  activeAnnouncer.setAttribute('aria-label', `Position ${currentPos + 1}`);
+                  activeAnnouncer.setAttribute('aria-hidden', 'false');
+                  activeAnnouncer.setAttribute('tabindex', '0');
+                  inactiveAnnouncer.setAttribute('tabindex', '-1');
+                  inactiveAnnouncer.setAttribute('aria-hidden', 'true');
+
+                  // Announce new value
+                  activeAnnouncer.focus();
+                }
+
+                activeAnnouncer.addEventListener('keydown', onKeyDown);
+                inactiveAnnouncer.addEventListener('keydown', onKeyDown);
+
+                // Boilerplate code (not shown on slide)
+                const canvas = document.getElementById('simple-ball-demo-canvas');
+                const ctx = canvas.getContext('2d');
+                const positions = [50, 100, 150, 200, 250, 350]; // Ball's X positions for 5 slots
+
+                function drawBall() {
+                  ctx.fillStyle = 'lime';
+                  ctx.fillRect(0, 0, canvas.width, canvas.height);
+                  ctx.beginPath();
+                  ctx.arc(positions[currentPos], 50, 20, 0, Math.PI * 2);
+                  ctx.fillStyle = 'black';
+                  ctx.fill();
+                  ctx.closePath();
+                }
+
+                function updateBounds() {
+                  const container = document.getElementById('simple-ball-demo-container');
+                  container.style.width  = `${24 * gScale}px`;
+                  container.style.height = `${6 * gScale}px`;
+                }
+
+                window.addEventListener('resize', updateBounds);
+                updateBounds();
+                drawBall();
+              })();
+            </script>
           </div>
         </div>
       </div>

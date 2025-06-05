@@ -1,0 +1,43 @@
+<style>
+  .announcer {
+      position: absolute;
+      /* ... */
+      opacity: 0;
+  }
+  .announcer:focus-visible {
+      opacity: 1;
+  }
+  .focus-indicator {
+      position: absolute;
+      pointer-events: none;
+      border-radius: 50%;
+      box-shadow: 0 0 0 2px white, 0 0 0 4px #ff00ff;
+  }
+</style>
+
+<div role="figure" aria-label="interactive canvas" class="container">
+  <canvas aria-hidden="true"></canvas>
+  <div class="announcer" id="announcer1" role="img" tabindex="0" aria-label="Position 1">
+    <div class="focus-indicator" role="none" style=""></div>
+  </div>
+  <div class="announcer" id="announcer2" role="img" tabindex="0" aria-label="">
+    <div class="focus-indicator" role="none" style=""></div>
+  </div>
+</div>
+
+<script>
+  function onKeyDown(event) {
+    updateBall(event);
+    swapAnnouncers();
+    updateFocusIndicator();
+  }
+
+  function updateFocusIndicator() {
+    const bounds = calcFocusIndicatorBounds(newPosition);
+    const focusEl = activeAnnouncer.querySelector('.focus-indicator');
+    focusEl.style.left = bounds.left;
+    focusEl.style.top = bounds.top;
+    focusEl.style.width = bounds.width;
+    focusEl.style.height = bounds.height;
+  }
+</script>

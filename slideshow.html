@@ -718,8 +718,8 @@
           <canvas id="simple-ball-example-canvas" aria-hidden="true" width="400px" height="100px"></canvas>
 
           <!-- Two announcer elements for accessibility -->
-          <div id="simple-ball-example-announcer1" role="img" class="announcer" tabindex="0"  aria-hidden="false" aria-label="Position 1"></div>
-          <div id="simple-ball-example-announcer2" role="img" class="announcer" tabindex="-1" aria-hidden="true"  aria-label=""></div>
+          <div id="simple-ball-example-announcer1" role="img" class="announcer" tabindex="0"  aria-label="Position 1"></div>
+          <div id="simple-ball-example-announcer2" role="img" class="announcer" tabindex="-1" aria-label=""></div>
         </div>
 
         <script>
@@ -767,10 +767,10 @@
               [activeAnnouncer, inactiveAnnouncer]  = [inactiveAnnouncer, activeAnnouncer];
 
               activeAnnouncer.setAttribute('aria-label', `Position ${newPosition + 1}`);
-              activeAnnouncer.setAttribute('aria-hidden', 'false');
               activeAnnouncer.setAttribute('tabindex', '0');
+              activeAnnouncer.style.display = 'block';
               inactiveAnnouncer.setAttribute('tabindex', '-1');
-              inactiveAnnouncer.setAttribute('aria-hidden', 'true');
+              inactiveAnnouncer.style.display = 'none';
 
               // Announce new value
               activeAnnouncer.focus();
@@ -819,36 +819,35 @@
   <span class="p">&lt;</span><span class="nt">canvas</span> <span class="na">aria-hidden</span><span class="o">=</span><span class="s">&quot;true&quot;</span> <span class="na">width</span><span class="o">=</span><span class="s">&quot;400px&quot;</span> <span class="na">height</span><span class="o">=</span><span class="s">&quot;100px&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">canvas</span><span class="p">&gt;</span>
 
   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;myAnnouncer1&quot;</span>
-       <span class="na">role</span><span class="o">=</span><span class="s">&quot;img&quot;</span> <span class="na">tabindex</span><span class="o">=</span><span class="s">&quot;<span id="announcer1-tabindex">0</span>&quot;</span> <span class="na">aria-hidden</span><span class="o">=</span><span class="s">&quot;<span id="announcer1-aria-hidden">false</span>&quot;</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;<span id="announcer1-aria-label">Position 1</span>&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+       <span class="na">role</span><span class="o">=</span><span class="s">&quot;img&quot;</span> <span class="na">tabindex</span><span class="o">=</span><span class="s">&quot;<span id="announcer1-tabindex">0</span>&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;display: <span id="announcer1-display">block</span>&quot;</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;<span id="announcer1-aria-label">Position 1</span>&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;myAnnouncer2&quot;</span>
-       <span class="na">role</span><span class="o">=</span><span class="s">&quot;img&quot;</span> <span class="na">tabindex</span><span class="o">=</span><span class="s">&quot;<span id="announcer2-tabindex">-1</span>&quot;</span> <span class="na">aria-hidden</span><span class="o">=</span><span class="s">&quot;<span id="announcer2-aria-hidden">true</span>&quot;</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;<span id="announcer2-aria-label"></span>&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+       <span class="na">role</span><span class="o">=</span><span class="s">&quot;img&quot;</span> <span class="na">tabindex</span><span class="o">=</span><span class="s">&quot;<span id="announcer2-tabindex">-1</span>&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;display: <span id="announcer2-display">none</span>&quot;</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;<span id="announcer2-aria-label"></span>&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">currentPos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// Current ball position, starting at 1st position</span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">activeAnnouncer</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;myAnnouncer1&#39;</span><span class="p">);</span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">inactiveAnnouncer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;myAnnouncer2&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">currentPos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// Current ball position, starting at 1st position</span>
+<span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">activeAnnouncer</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;myAnnouncer1&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">inactiveAnnouncer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;myAnnouncer2&#39;</span><span class="p">);</span>
 
-<span class="w">    </span><span class="kd">function</span><span class="w"> </span><span class="nx">onKeyDown</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="c1">// Update state:</span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">key</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;ArrowLeft&#39;</span><span class="w">  </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">currentPos</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">currentPos</span><span class="o">--</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">key</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;ArrowRight&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">currentPos</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">currentPos</span><span class="o">++</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">      </span><span class="nx">drawBall</span><span class="p">();</span>
+<span class="w">  </span><span class="kd">function</span><span class="w"> </span><span class="nx">onKeyDown</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Update state:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">key</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;ArrowLeft&#39;</span><span class="w">  </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">currentPos</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">currentPos</span><span class="o">--</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">key</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;ArrowRight&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">currentPos</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">currentPos</span><span class="o">++</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">drawBall</span><span class="p">();</span>
 
-<span class="w">      </span><span class="c1">// Swap announcer states</span>
-<span class="w">      </span><span class="p">[</span><span class="nx">activeAnnouncer</span><span class="p">,</span><span class="w"> </span><span class="nx">inactiveAnnouncer</span><span class="p">]</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nx">inactiveAnnouncer</span><span class="p">,</span><span class="w"> </span><span class="nx">activeAnnouncer</span><span class="p">];</span>
-<span class="w">      </span><span class="nx">activeAnnouncer</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;aria-label&#39;</span><span class="p">,</span><span class="w"> </span><span class="sb">`Position </span><span class="si">${</span><span class="nx">currentPos</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
-<span class="w">      </span><span class="nx">activeAnnouncer</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;aria-hidden&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;false&#39;</span><span class="p">);</span>
-<span class="w">      </span><span class="nx">activeAnnouncer</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;tabindex&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="p">);</span>
-<span class="w">      </span><span class="nx">inactiveAnnouncer</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;tabindex&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-1&#39;</span><span class="p">);</span>
-<span class="w">      </span><span class="nx">inactiveAnnouncer</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;aria-hidden&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;true&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// Swap announcer states</span>
+<span class="w">    </span><span class="nx">activeAnnouncer</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;aria-label&#39;</span><span class="p">,</span><span class="w"> </span><span class="sb">`Position </span><span class="si">${</span><span class="nx">newPosition</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">activeAnnouncer</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;tabindex&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">activeAnnouncer</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;block&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">inactiveAnnouncer</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;tabindex&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-1&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">inactiveAnnouncer</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;none&#39;</span><span class="p">;</span>
 
-<span class="w">      </span><span class="c1">// Announce new value</span>
-<span class="w">      </span><span class="nx">activeAnnouncer</span><span class="p">.</span><span class="nx">focus</span><span class="p">();</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// Announce new value</span>
+<span class="w">    </span><span class="nx">activeAnnouncer</span><span class="p">.</span><span class="nx">focus</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
 
-<span class="w">    </span><span class="nx">activeAnnouncer</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;keydown&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">onKeyDown</span><span class="p">);</span>
-<span class="w">    </span><span class="nx">inactiveAnnouncer</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;keydown&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">onKeyDown</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">activeAnnouncer</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;keydown&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">onKeyDown</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">inactiveAnnouncer</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;keydown&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">onKeyDown</span><span class="p">);</span>
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
           </div>
@@ -858,8 +857,8 @@
               <canvas id="simple-ball-demo-canvas" aria-hidden="true" width="400px" height="100px"></canvas>
 
               <!-- Two announcer elements for accessibility -->
-              <div id="simple-ball-demo-announcer1" role="img" class="announcer" tabindex="0"  aria-hidden="false" aria-label="Position 1"></div>
-              <div id="simple-ball-demo-announcer2" role="img" class="announcer" tabindex="-1" aria-hidden="true"  aria-label=""></div>
+              <div id="simple-ball-demo-announcer1" role="img" class="announcer" tabindex="0" style="display: block" aria-label="Position 1"></div>
+              <div id="simple-ball-demo-announcer2" role="img" class="announcer" tabindex="-1" style="display: none" aria-label=""></div>
             </div>
 
             <script>
@@ -870,16 +869,17 @@
 
                 function onKeyDown(event) {
                   // Update state:
+                  event.preventDefault();
                   if (event.key === 'ArrowLeft'  && currentPos > 0) { currentPos--; }
                   if (event.key === 'ArrowRight' && currentPos < 5) { currentPos++; }
 
                   // Swap announcer states
                   [activeAnnouncer, inactiveAnnouncer]  = [inactiveAnnouncer, activeAnnouncer];
                   activeAnnouncer.setAttribute('aria-label', `Position ${currentPos + 1}`);
-                  activeAnnouncer.setAttribute('aria-hidden', 'false');
                   activeAnnouncer.setAttribute('tabindex', '0');
+                  activeAnnouncer.style.display = 'block';
                   inactiveAnnouncer.setAttribute('tabindex', '-1');
-                  inactiveAnnouncer.setAttribute('aria-hidden', 'true');
+                  inactiveAnnouncer.style.display = 'none';
                   drawBall();
 
                   // Announce new value
@@ -908,14 +908,14 @@
                   const announcer2 = document.getElementById('simple-ball-demo-announcer2');
                   const announcer1_tabindex = document.getElementById('announcer1-tabindex');
                   const announcer2_tabindex = document.getElementById('announcer2-tabindex');
-                  const announcer1_ariahidden = document.getElementById('announcer1-aria-hidden');
-                  const announcer2_ariahidden = document.getElementById('announcer2-aria-hidden');
+                  const announcer1_display = document.getElementById('announcer1-display');
+                  const announcer2_display = document.getElementById('announcer2-display');
                   const announcer1_arialabel = document.getElementById('announcer1-aria-label');
                   const announcer2_arialabel = document.getElementById('announcer2-aria-label');
                   announcer1_tabindex.textContent = `${announcer1.tabIndex}`;
                   announcer2_tabindex.textContent = `${announcer2.tabIndex}`;
-                  announcer1_ariahidden.textContent = announcer1.getAttribute('aria-hidden');
-                  announcer2_ariahidden.textContent = announcer2.getAttribute('aria-hidden');
+                  announcer1_display.textContent = announcer1.style.display;
+                  announcer2_display.textContent = announcer2.style.display;
                   announcer1_arialabel.textContent = announcer1.getAttribute('aria-label');
                   announcer2_arialabel.textContent = announcer2.getAttribute('aria-label');
                 }

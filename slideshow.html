@@ -671,7 +671,7 @@
       </div>
 
       <div class="slide">
-        <h1>Interactive Images</h1>
+        <h1>Interactive Canvas</h1>
         <ul>
           <li>Proxy DOM elements <strong style="color: green">work well</strong> for:</li>
           <ul>
@@ -686,7 +686,7 @@
       </div>
 
       <div class="slide" id="simple-ball-example">
-        <h1>Interactive Images - Simple Ball Example</h1>
+        <h1>Interactive Canvas - Simple Ball Example</h1>
         <br/>
         <div role="figure" aria-label="interactive canvas" class="container" id="simple-ball-example-container" >
           <canvas id="simple-ball-example-canvas" aria-hidden="true" width="400px" height="100px"></canvas>
@@ -766,6 +766,23 @@
             drawBall();
           })();
         </script>
+      </div>
+
+      <div class="slide">
+        <h1>Interactive Canvas - What's going on?</h1>
+        <ul>
+          <li><strong>The trick:</strong></li>
+          <ul>
+            <li>Treat screen-reader announcements like video frames.</li>
+            <li>Use a swapchain of <code>aria-label</code> values.</li>
+            <li>"Present" new <code>aria-label</code> values using <code>focus()</code>.</li>
+          </ul>
+          <li><strong>Why this works?</strong></li>
+          <ul>
+            <li>It follows the same update-pattern as the canvas<br/>(which is basically like a video, sort of).</li>
+            <li>Assistive Technology handle focus changes very well.</li>
+          </ul>
+        </ul>
       </div>
 
       <!-- ->

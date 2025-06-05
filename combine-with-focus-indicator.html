@@ -84,29 +84,19 @@
     }
 
     function calcFocusIndicatorBounds(newPosition) {
-      // Set position and size of the focus-indicator in percentage
       const rect = canvas.getBoundingClientRect();
-      const ballX = 2 + positions[newPosition];
-      const ballY = 2 + 50; // fixed vertical center
-      const ballRadius = 22;
+      const scale = rect.width / 400;
 
-      // Calculate absolute pixel bounds around the ball
-      const leftPx = ballX - ballRadius;
-      const topPx = ballY - ballRadius;
-      const widthPx = ballRadius * 2;
-      const heightPx = ballRadius * 2;
-
-      // Convert to percentages
-      const leftPercent = (leftPx / rect.width) * 100;
-      const topPercent = (topPx / rect.height) * 100;
-      const widthPercent = (widthPx / rect.width) * 100;
-      const heightPercent = (heightPx / rect.height) * 100;
+      const left   = positions[newPosition] - 20;
+      const top    = 30;
+      const width  = 40
+      const height = 40;
 
       return {
-        left: `${leftPercent}%`,
-        top: `${topPercent}%`,
-        width: `${widthPercent}%`,
-        height: `${heightPercent}%`,
+        left:   `${left   * scale}px`,
+        top:    `${top    * scale}px`,
+        width:  `${width  * scale}px`,
+        height: `${height * scale}px`,
       };
     }
 

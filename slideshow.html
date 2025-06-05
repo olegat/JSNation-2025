@@ -133,7 +133,7 @@
       }
 
       .highlight .nt { /* HTML tag names (e.g., <div>) */
-          color: #d73a49; /* reddish */
+          color: #4895ef; /* navy blue */
       }
 
       .highlight .k, /* CSS property names (e.g. display, position, color, ..) */
@@ -141,8 +141,19 @@
           color: #6f42c1; /* purple */
       }
 
-      .highlight .s { /* HTML attribute string values (e.g., "https://...") */
-          color: #032f62; /* dark blue */
+      .highlight .s, /* HTML attribute string values (e.g., "https://...") */
+      .highlight .s1, /* JS strings (single-quoted) */
+      .highlight .s2, /* JS strings (double-quoted) */
+      .highlight .sb { /* JS strings (backtick quoted) */
+          color: #d73a49; /* reddish */
+      }
+
+      .highlight .c1 { /* JS single line comments */
+          color: #08a045; /* green */
+      }
+
+      .highlight .si { /* JS backtick brackets */
+          color: #fdb515; /* gold */
       }
 
       .highlight .o { /* Operators like '=' */
@@ -155,10 +166,6 @@
 
       .highlight .nb { /* JS built-in globals like `document`, `console` */
           color: #e36209; /* orange */
-      }
-
-      .highlight .s2 { /* JS strings (double-quoted or otherwise) */
-          color: #032f62; /* same dark blue */
       }
 
       .highlight .w { /* Whitespace (optional, usually ignored) */

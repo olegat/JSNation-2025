@@ -20,6 +20,7 @@
     drawBall();
 
     // Swap announcer states
+    [activeAnnouncer, inactiveAnnouncer] = [inactiveAnnouncer, activeAnnouncer];
     activeAnnouncer.setAttribute('aria-label', `Position ${currentPos + 1}`);
     activeAnnouncer.setAttribute('tabindex', '0');
     activeAnnouncer.style.display = 'block';

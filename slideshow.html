@@ -1164,14 +1164,18 @@
           (() => {
             function getRIOpts_myChartExample1() {
               return {
+                title: {
+                  text: `Renewable sources used to generate electricity for transport fuels`,
+                  fontSize: 1.7 * gScale,
+                },
                 legend: {
                   pagination: {
-                    marker: { size: 2.5 * gScale },
-                    label: { fontSize: 2.3 * gScale },
+                    marker: { size: 1.1 * gScale },
+                    label: { fontSize: 1.4 * gScale },
                   },
                   item: {
-                    marker: { size: 2.5 * gScale },
-                    label: { fontSize: 2.3 * gScale },
+                    marker: { size: 1.4 * gScale },
+                    label: { fontSize: 1.1 * gScale },
                     line: {
                       strokeWidth: 1.0 * gScale,
                       length: 6 * gScale,
@@ -1179,10 +1183,29 @@
                     paddingX: 1 * gScale,
                     paddingY: 1 * gScale,
                   },
-                  maxHeight: 6 * gScale,
-                  maxWidth: 80 * gScale,
+                  maxHeight: 3 * gScale,
+                  maxWidth: 60 * gScale,
                   spacing: 1 * gScale,
                 },
+                axes: [
+                  {
+                    position: "bottom",
+                    type: "category",
+                    label: { fontSize: 1.2 * gScale },
+                  },
+                  {
+                    position: "left",
+                    type: "number",
+                    title: {
+                      text: `kilotonnes of oil equivalent (ktoe)`,
+                      fontSize: 1.2 * gScale,
+                    },
+                    label: {
+                      formatter: (params) => `${params.value / 1000}K`,
+                      fontSize: 1.2 * gScale,
+                    },
+                  },
+                ],
               };
             }
 
@@ -1192,7 +1215,6 @@
 
             const myChartExample1 = agCharts.AgCharts.create({
               container: document.getElementById('myChartExample1'),
-              title: { text: `Renewable sources used to generate electricity for transport fuels` },
               data: [
                 { year: "2017", "Onshore wind": 2470, "Offshore wind": 1798, "Solar photovoltaics": 985, "Small scale Hydro": 112, "Large scale Hydro": 394, "Landfill gas": 1405 },
                 { year: "2018", "Onshore wind": 2612, "Offshore wind": 2281, "Solar photovoltaics": 1089, "Small scale Hydro": 111, "Large scale Hydro": 357, "Landfill gas": 1284 },
@@ -1207,15 +1229,6 @@
                 { type: "bar", xKey: "year", yKey: "Solar photovoltaics", yName: "Solar Photovoltaics" },
                 { type: "bar", xKey: "year", yKey: "Small scale Hydro", yName: "Small Scale Hydro" },
                 { type: "bar", xKey: "year", yKey: "Large scale Hydro", yName: "Large Scale Hydro" },
-              ],
-              axes: [
-                { position: "bottom", type: "category" },
-                {
-                  position: "left",
-                  type: "number",
-                  title: { text: `kilotonnes of oil equivalent (ktoe)` },
-                  label: { formatter: (params) => `${params.value / 1000}K` },
-                },
               ],
               ...getRIOpts_myChartExample1(),
             });

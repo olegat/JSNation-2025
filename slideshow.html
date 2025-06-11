@@ -1255,6 +1255,88 @@
         </script>
       </div>
 
+      <div class="slide">
+        <div style="height: 80%; width: 80%;" id="myChartExample2"></div>
+        <p>Clicked: <code id="clicked-datum2">undefined</code></p>
+        <script>
+          (() => {
+            function getRIOpts_myChartExample2() {
+              return {
+                title: {
+                  text: "Portfolio Composition",
+                  fontSize: 1.7 * gScale,
+                },
+                legend: {
+                  pagination: {
+                    marker: { size: 1.1 * gScale },
+                    label: { fontSize: 1.4 * gScale },
+                  },
+                  item: {
+                    marker: { size: 1.4 * gScale },
+                    label: { fontSize: 1.1 * gScale },
+                    line: {
+                      strokeWidth: 0.5 * gScale,
+                      length: 3 * gScale,
+                    },
+                    paddingX: 1 * gScale,
+                    paddingY: 1 * gScale,
+                  },
+                  maxHeight: 3 * gScale,
+                  maxWidth: 60 * gScale,
+                  spacing: 1 * gScale,
+                },
+                series: [
+                  {
+                    type: "donut",
+                    title: {  text: "Previous Year", fontSize: 1.2 * gScale },
+                    legendItemKey: "asset",
+                    angleKey: "previousYear",
+                    outerRadiusRatio: 1,
+                    innerRadiusRatio: 0.8,
+                  },
+                  {
+                    type: "donut",
+                    title: { text: "Current Year", fontSize: 1.2 * gScale },
+                    legendItemKey: "asset",
+                    showInLegend: false,
+                    angleKey: "currentYear",
+                    outerRadiusRatio: 0.5,
+                    innerRadiusRatio: 0.3,
+                  },
+                ],
+              };
+            }
+
+            function update_myChartExample2() {
+              myChartExample2.updateDelta(getRIOpts_myChartExample2());
+            }
+
+            const myChartExample2 = agCharts.AgCharts.create({
+              container: document.getElementById('myChartExample2'),
+              data: [
+                { asset: "Stocks", previousYear: 70000, currentYear: 40000 },
+                { asset: "Bonds", previousYear: 30000, currentYear: 60000 },
+                { asset: "Cash", previousYear: 5000, currentYear: 7000 },
+                { asset: "Real Estate", previousYear: 8000, currentYear: 5000 },
+                { asset: "Commodities", previousYear: 4500, currentYear: 3000 },
+              ],
+              listeners: {
+                seriesNodeClick: (e) => {
+                  const datumSubset = {};
+                  datumSubset.asset = e.datum.asset;
+                  datumSubset[e.angleKey] = e.datum[e.angleKey];
+                  document.getElementById('clicked-datum2').textContent = JSON.stringify(datumSubset);
+                },
+              },
+              ...getRIOpts_myChartExample2(),
+            });
+
+            window.addEventListener('resize', update_myChartExample2);
+            update_myChartExample2();
+          })();
+        </script>
+      </div>
+
       <div class="slide-hidden">
         <h1>Gotcha! :focus-visible caveats</h1>
         <p style="color: red;">TODO - :focus-visible is browser-dependent.</p>

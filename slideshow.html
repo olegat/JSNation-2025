@@ -1167,6 +1167,7 @@
 
       <div class="slide">
         <div style="height: 80%; width: 80%;" id="myChartExample1"></div>
+        <p>Clicked: <code id="clicked-datum">undefined</code></p>
         <script>
           (() => {
             function getRIOpts_myChartExample1() {
@@ -1237,6 +1238,14 @@
                 { type: "bar", xKey: "year", yKey: "Small scale Hydro", yName: "Small Scale Hydro" },
                 { type: "bar", xKey: "year", yKey: "Large scale Hydro", yName: "Large Scale Hydro" },
               ],
+              listeners: {
+                seriesNodeClick: (e) => {
+                  const datumSubset = {};
+                  datumSubset[e.xKey] = e.datum[e.xKey];
+                  datumSubset[e.yKey] = e.datum[e.yKey];
+                  document.getElementById('clicked-datum').textContent = JSON.stringify(datumSubset);
+                },
+              },
               ...getRIOpts_myChartExample1(),
             });
 
